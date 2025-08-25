@@ -2,20 +2,24 @@ let amigoSecreto = [];
 
 // funcion para agregar un nuevo amigo
 function agregarAmigo() {
-  // obtenemos el valor de entrada
-  let nombre = document.getElementById("amigo").value;
-  // validamos que el campo no este vacio
+  // Obtenemos el valor de entrada y eliminamos espacios y convertimos los nombres a minusculas
+  let nombre = document.getElementById("amigo").value.trim().toLowerCase();
+  // Validación 1: Verificamos si el campo está vacío
   if (nombre === "") {
     alert("Por favor, ingrese un nombre.");
-    return;
-    // agregamos el valor
-  } else {
-    amigoSecreto.push(nombre);
-    // limpiamos el campo de entrada, despues de agregar un nuevo amigo
-    document.getElementById("amigo").value = "";
-    actualizarAmigos();
-    console.log(amigoSecreto);
+    return; // Detenemos la función aquí
   }
+  // Validación 2: Verificamos si el nombre ya existe
+  if (amigoSecreto.includes(nombre)) {
+    alert("Ese nombre ya ha sido agregado.");
+    return; // Detenemos la función aquí
+  }
+  // Si las validaciones pasaron, agregamos el nombre
+  amigoSecreto.push(nombre);
+  // Limpiamos el campo y actualizamos la lista
+  document.getElementById("amigo").value = "";
+  actualizarAmigos();
+  console.log(amigoSecreto);
 }
 
 // funcion para mostrar la lista de amigos
@@ -35,4 +39,40 @@ function actualizarAmigos() {
     li.appendChild(document.createTextNode(amigoSecreto[i]));
     document.getElementById("listaAmigos").appendChild(li);
   }
+}
+
+function sortearAmigo() {
+  // 1. Validamos que haya amigos disponibles
+  if (amigoSecreto.length === 0) {
+    alert("Agrega al menos un amigo para sortear.");
+    return;
+  }
+
+  // 2. Generamos un índice aleatorio
+  let indiceAleatorio = Math.floor(Math.random() * amigoSecreto.length);
+
+  // 3. Obtenemos el nombre sorteado
+  let amigoSorteado = amigoSecreto[indiceAleatorio];
+
+  // 4. Mostramos el resultado en el HTML
+  // a) Obtenemos el elemento de resultado
+  let resultadoElemento = document.getElementById("resultado");
+
+  // b) Actualizamos el contenido con el nombre sorteado
+  resultadoElemento.innerHTML = `
+        <p>¡El amigo sorteado es:</p>
+        <p class="amigo-sorteado">${amigoSorteado}</p>
+    `;
+
+  // Opcional: Si quieres, puedes eliminar el amigo de la lista original
+  // para evitar que vuelva a ser sorteado.
+  // amigoSecreto.splice(indiceAleatorio, 1);
+  // actualizarAmigos();
+}
+
+function reiniciarSorteo() {
+  // Limpiamos la lista de amigos y el resultado
+  amigoSecreto = [];
+  document.getElementById("listaAmigos").innerHTML = "";
+  document.getElementById("resultado").innerHTML = "";
 }
