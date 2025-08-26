@@ -4,12 +4,12 @@ let amigoSecreto = [];
 function agregarAmigo() {
   // Obtenemos el valor de entrada y eliminamos espacios y convertimos los nombres a minusculas
   let nombre = document.getElementById("amigo").value.trim().toLowerCase();
-  // Validación 1: Verificamos si el campo está vacío
+  // Verificamos si el campo está vacío
   if (nombre === "") {
     alert("Por favor, ingrese un nombre.");
     return; // Detenemos la función aquí
   }
-  // Validación 2: Verificamos si el nombre ya existe
+  // Verificamos si el nombre ya existe
   if (amigoSecreto.includes(nombre)) {
     alert("Ese nombre ya ha sido agregado.");
     return; // Detenemos la función aquí
@@ -42,32 +42,27 @@ function actualizarAmigos() {
 }
 
 function sortearAmigo() {
-  // 1. Validamos que haya amigos disponibles
-  if (amigoSecreto.length === 0) {
-    alert("Agrega al menos un amigo para sortear.");
+  // Validamos que haya amigos disponibles
+  if (amigoSecreto.length < 2) {
+    alert("Debe haber al menos 2 amigos para realizar el sorteo.");
     return;
   }
 
-  // 2. Generamos un índice aleatorio
+  // Generamos un índice aleatorio
   let indiceAleatorio = Math.floor(Math.random() * amigoSecreto.length);
 
-  // 3. Obtenemos el nombre sorteado
+  // Obtenemos el nombre sorteado
   let amigoSorteado = amigoSecreto[indiceAleatorio];
 
-  // 4. Mostramos el resultado en el HTML
-  // a) Obtenemos el elemento de resultado
+  // Mostramos el resultado en el HTML
+  // Obtenemos el elemento de resultado
   let resultadoElemento = document.getElementById("resultado");
 
-  // b) Actualizamos el contenido con el nombre sorteado
+  // Actualizamos el contenido con el nombre sorteado
   resultadoElemento.innerHTML = `
-        <p>¡El amigo sorteado es:</p>
+        <p>¡Tu amigo secreto es:</p>
         <p class="amigo-sorteado">${amigoSorteado}</p>
     `;
-
-  // Opcional: Si quieres, puedes eliminar el amigo de la lista original
-  // para evitar que vuelva a ser sorteado.
-  // amigoSecreto.splice(indiceAleatorio, 1);
-  // actualizarAmigos();
 }
 
 function reiniciarSorteo() {

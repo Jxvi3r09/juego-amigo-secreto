@@ -151,7 +151,7 @@ button {
 .button-reset {
   background-color: var(--color-tertiary);
   color: var(--color-text);
-  padding: 10px 40px;
+  /* padding: 10px 40px; */
 }
 
 .button-reset:hover {
